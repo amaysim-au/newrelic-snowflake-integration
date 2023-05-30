@@ -17,12 +17,12 @@ integrations:
           custom_attributes:
             metric_type: snowflake.billing
           commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/account_metering.sql
+            - run: /home/ec2-user/newrelic-snowflake-integration/snowflakeintegration-linux /home/ec2-user/newrelic-snowflake-integration/config.yaml /home/ec2-user/newrelic-snowflake-integration/queries/account_metering.sql
         - name: longestQueries
           entity: snowflake
           event_type: SnowflakeVirtualWarehouse
           custom_attributes:
             metric_type: snowflake.query_performance
           commands: 
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
+            - run: /home/ec2-user/newrelic-snowflake-integration/snowflakeintegration-linux /home/ec2-user/newrelic-snowflake-integration/config.yaml /home/ec2-user/newrelic-snowflake-integration/queries/longest_queries.sql
       
