@@ -83,7 +83,6 @@ integrations:
             metric_type: snowflake.query_performance
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/query_history.sql
-              timeout: 600000
         # Warehouse Load History emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
         - name: snowflakeWarehouseLoadHistory
@@ -111,7 +110,6 @@ integrations:
             metric_type: snowflake.query_performance
           commands: 
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
-              timeout: 600000
         # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
         - name: CreditUsageByWarehouse
