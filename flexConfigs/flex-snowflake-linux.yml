@@ -18,6 +18,14 @@ integrations:
             metric_type: snowflake.billing
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/account_metering.sql
+        - name: snowflakeDataDelay
+          # Enables remote monitoring which prevents adding host metadata
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.data_delay_check
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/data_delay_check.sql
   - name: nri-flex
     interval: 60s
     config:
