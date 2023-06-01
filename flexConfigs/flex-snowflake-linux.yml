@@ -3,7 +3,7 @@ integrations:
   - name: nri-flex
     interval: 120s
     config:
-      name: snowflakeAccount
+      name: snowflake
       custom_attributes:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
@@ -18,10 +18,10 @@ integrations:
             metric_type: snowflake.billing
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/account_metering.sql
-  - name: nri-flex-2
+  - name: nri-flex
     interval: 60s
     config:
-      name: snowflakeVirtualWarehouse
+      name: snowflake
       custom_attributes:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
