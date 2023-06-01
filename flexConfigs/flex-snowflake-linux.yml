@@ -74,6 +74,16 @@ integrations:
             metric_type: snowflake.table_storage_usage
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/table_storage_usage.sql
+- name: nri-flex
+    interval: 1200s
+    config:
+      name: snowflake
+      custom_attributes:
+        environment: production
+        snowflake_account: $$SNOWSQL_ACCOUNT
+      global:
+        timeout: 1200000
+      apis:
         # Query History emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
         - name: snowflakeQueryHistory
@@ -83,40 +93,3 @@ integrations:
             metric_type: snowflake.query_performance
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/query_history.sql
-        # Warehouse Load History emits under a different event type - SnowflakeVirtualWarehouse
-        # since these metrics are related to a particular warehouse.
-        - name: snowflakeWarehouseLoadHistory
-          entity: snowflake
-          event_type: SnowflakeVirtualWarehouse
-          custom_attributes:
-            metric_type: snowflake.warehouse_performance
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/warehouse_load_history.sql
-        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
-        # since these metrics are related to a particular warehouse.
-        - name: snowflakeWarehouseMetering
-          entity: snowflake
-          event_type: SnowflakeVirtualWarehouse
-          custom_attributes:
-            metric_type: snowflake.billing
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/warehouse_metering.sql
-        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
-        # since these metrics are related to a particular warehouse.
-        - name: longestQueries
-          entity: snowflake
-          event_type: SnowflakeVirtualWarehouse
-          custom_attributes:
-            metric_type: snowflake.query_performance
-          commands: 
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
-        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
-        # since these metrics are related to a particular warehouse.
-        - name: CreditUsageByWarehouse
-          entity: snowflake
-          event_type: SnowflakeVirtualWarehouse
-          custom_attributes:
-            metric_type: snowflake.credit_usage_by_warehouse
-          commands: 
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/credit_usage_by_warehouse.sql
-
