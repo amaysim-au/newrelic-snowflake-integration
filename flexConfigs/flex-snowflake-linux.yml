@@ -59,21 +59,9 @@ integrations:
             metric_type: snowflake.query_performance
           commands: 
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
-  - name: nri-flex
-    interval: 120s
-    config:
-      name: snowflake
-      custom_attributes:
-        environment: production
-        snowflake_account: $$SNOWSQL_ACCOUNT
-      global:
-        timeout: 300000
-      apis:
-        # Query History emits under a different event type - SnowflakeVirtualWarehouse
-        # since these metrics are related to a particular warehouse.
         - name: snowflakeMetadataChange
           entity: snowflake
-          event_type: SnowflakeCustomQueries
+          event_type: SnowflakeVirtualWarehouse
           custom_attributes:
             metric_type: snowflake.metadata_change_check
           commands:
