@@ -1,14 +1,14 @@
 ---
 integrations:
   - name: nri-flex
-    interval: 21000s
+    interval: 420s
     config:
       name: snowflake
       custom_attributes:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
-        timeout: 3000s
+        timeout: 60000
       apis:
         - name: snowflakeAccountMetering
           # Enables remote monitoring which prevents adding host metadata
@@ -90,7 +90,7 @@ integrations:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
-        timeout: 500s
+        timeout: 300000
       apis:
         # Query History emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
@@ -116,7 +116,7 @@ integrations:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
-        timeout: 300s
+        timeout: 300000
       apis:
         # Query History emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
