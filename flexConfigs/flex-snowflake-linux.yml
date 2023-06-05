@@ -1,14 +1,14 @@
 ---
 integrations:
   - name: nri-flex
-    interval: 1200s
+    interval: 21000s
     config:
       name: snowflake
       custom_attributes:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
-        timeout: 300s
+        timeout: 3000s
       apis:
         - name: snowflakeAccountMetering
           # Enables remote monitoring which prevents adding host metadata
@@ -90,7 +90,7 @@ integrations:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
-        timeout: 300s
+        timeout: 500s
       apis:
         # Query History emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
@@ -101,6 +101,13 @@ integrations:
             metric_type: snowflake.query_performance
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/query_history.sql
+        - name: longestQueries
+          entity: snowflake
+          event_type: SnowflakeVirtualWarehouse
+          custom_attributes:
+            metric_type: snowflake.query_performance
+          commands: 
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
   - name: nri-flex
     interval: 1200s
     config:
