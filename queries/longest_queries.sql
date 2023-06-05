@@ -11,5 +11,4 @@ EXECUTION_STATUS,
 START_TIME
 from "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" 
 where EXECUTION_STATUS = 'SUCCESS' 
-and start_time >= date_trunc(day, current_date)
-order by EXECUTION_TIME desc;
+and start_time >= dateadd('hour',-4,current_timestamp());
