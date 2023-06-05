@@ -1,14 +1,14 @@
 ---
 integrations:
   - name: nri-flex
-    interval: 420s
+    interval: 120s
     config:
       name: snowflake
       custom_attributes:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
-        timeout: 60000
+        timeout: 300000
       apis:
         - name: snowflakeAccountMetering
           # Enables remote monitoring which prevents adding host metadata
@@ -25,55 +25,6 @@ integrations:
             metric_type: snowflake.automatic_clustering
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/automatic_clustering_usage.sql
-        - name: snowflakeDataTransferUsage
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.data_transfer
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/data_transfer_usage.sql
-        - name: snowflakeDatabaseStorageUsage
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.database_storage
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/database_storage_usage.sql
-        - name: snowflakeLoginHistory
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.login_history
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/login_history.sql
-        - name: snowflakePipeUsage
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.pipe_usage
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/pipe_usage.sql
-        - name: snowflakeReplicationUsage
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.replication_usage
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/replication_usage.sql
-        - name: snowflakeStorageUsage
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.storage_usage
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/storage_usage.sql
-        - name: snowflakeTableStorageUsage
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.table_storage_usage
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/table_storage_usage.sql
         - name: snowflakeDataDelay
           # Custom Query
           entity: snowflake
@@ -83,7 +34,7 @@ integrations:
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/data_delay_check.sql
   - name: nri-flex
-    interval: 1200s
+    interval: 120s
     config:
       name: snowflake
       custom_attributes:
@@ -109,7 +60,7 @@ integrations:
           commands: 
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
   - name: nri-flex
-    interval: 1200s
+    interval: 120s
     config:
       name: snowflake
       custom_attributes:
