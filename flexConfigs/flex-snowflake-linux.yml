@@ -10,39 +10,6 @@ integrations:
       global:
         timeout: 300000
       apis:
-        - name: snowflakeAccountMetering
-          # Enables remote monitoring which prevents adding host metadata
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.billing
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/account_metering.sql
-        - name: snowflakeDataDelay
-          # Enables remote monitoring which prevents adding host metadata
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.data_delay_check
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/data_delay_check.sql
-        - name: snowflakeMetadataChange
-          # Enables remote monitoring which prevents adding host metadata
-          entity: snowflake
-          event_type: SnowflakeAccount
-          custom_attributes:
-            metric_type: snowflake.metadata_change_check
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/metadata_change_check.sql
-  - name: nri-flex
-    interval: 900s
-    timeout: 600000
-    config:
-      name: snowflake
-      custom_attributes:
-        environment: production
-        snowflake_account: $$SNOWSQL_ACCOUNT
-      apis:
         # Query History emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
         - name: snowflakeQueryHistory
