@@ -23,7 +23,7 @@ integrations:
           entity: snowflake
           event_type: SnowflakeVirtualWarehouse
           custom_attributes:
-            metric_type: snowflake.query_performance
+            metric_type: snowflake.change_back_later
           commands: 
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
               
