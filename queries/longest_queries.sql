@@ -14,5 +14,5 @@ USER_NAME,
 EXECUTION_STATUS,
 START_TIME
 from "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" 
-where start_time >= date_trunc(day, current_date) 
+where start_time >= date_trunc(day, current_date-7) 
 AND EXEC_TIME >= 30;
