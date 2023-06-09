@@ -90,6 +90,13 @@ integrations:
             metric_type: snowflake.query_performance
           commands: 
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
+        - name: metadataChangeCheck
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.metadata_change_check
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/metadata_change_check.sql
   - name: nri-flex
     interval: 3600s
     config:
