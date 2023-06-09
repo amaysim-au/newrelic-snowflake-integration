@@ -8,7 +8,7 @@ integrations:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
-        timeout: 120000
+        timeout: 300000
       apis:
         - name: snowflakeAccountMetering
           # Enables remote monitoring which prevents adding host metadata
@@ -76,24 +76,20 @@ integrations:
             metric_type: snowflake.warehouse_performance
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/warehouse_load_history.sql
-        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
-        # since these metrics are related to a particular warehouse.
-        - name: snowflakeWarehouseMetering
+        - name: snowflakeQueryHistory
           entity: snowflake
           event_type: SnowflakeVirtualWarehouse
           custom_attributes:
-            metric_type: snowflake.billing
+            metric_type: snowflake.query_performance
           commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/warehouse_metering.sql
-        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
-        # since these metrics are related to a particular warehouse.
-        - name: CreditUsageByWarehouse
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/query_history.sql
+        - name: longestQueries
           entity: snowflake
           event_type: SnowflakeVirtualWarehouse
           custom_attributes:
-            metric_type: snowflake.credit_usage_by_warehouse
+            metric_type: snowflake.query_performance
           commands: 
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/credit_usage_by_warehouse.sql
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
   - name: nri-flex
     interval: 3600s
     config:
@@ -111,30 +107,21 @@ integrations:
             metric_type: snowflake.table_storage_usage
           commands:
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/table_storage_usage.sql
-  - name: nri-flex
-    interval: 600s
-    config:
-      name: snowflake
-      custom_attributes:
-        environment: production
-        snowflake_account: $$SNOWSQL_ACCOUNT
-      global:
-        timeout: 300000
-      apis:
-        # Query History emits under a different event type - SnowflakeVirtualWarehouse
+        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
         # since these metrics are related to a particular warehouse.
-        - name: snowflakeQueryHistory
+        - name: CreditUsageByWarehouse
           entity: snowflake
           event_type: SnowflakeVirtualWarehouse
           custom_attributes:
-            metric_type: snowflake.query_performance
-          commands:
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/query_history.sql
-        - name: longestQueries
-          entity: snowflake
-          event_type: SnowflakeVirtualWarehouse
-          custom_attributes:
-            metric_type: snowflake.query_performance
+            metric_type: snowflake.credit_usage_by_warehouse
           commands: 
-            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
-              
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/credit_usage_by_warehouse.sql
+        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
+        # since these metrics are related to a particular warehouse.
+        - name: snowflakeWarehouseMetering
+          entity: snowflake
+          event_type: SnowflakeVirtualWarehouse
+          custom_attributes:
+            metric_type: snowflake.billing
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/warehouse_metering.sql
