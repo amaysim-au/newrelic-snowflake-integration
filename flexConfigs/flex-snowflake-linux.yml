@@ -8,6 +8,107 @@ integrations:
         environment: production
         snowflake_account: $$SNOWSQL_ACCOUNT
       global:
+        timeout: 120000
+      apis:
+        - name: snowflakeAccountMetering
+          # Enables remote monitoring which prevents adding host metadata
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.billing
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/account_metering.sql
+        - name: snowflakeAutomaticClusteringUsage
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.automatic_clustering
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/automatic_clustering_usage.sql
+        - name: snowflakeDataTransferUsage
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.data_transfer
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/data_transfer_usage.sql
+        - name: snowflakeDatabaseStorageUsage
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.database_storage
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/database_storage_usage.sql
+        - name: snowflakeLoginHistory
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.login_history
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/login_history.sql
+        - name: snowflakePipeUsage
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.pipe_usage
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/pipe_usage.sql
+        - name: snowflakeReplicationUsage
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.replication_usage
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/replication_usage.sql
+        - name: snowflakeStorageUsage
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.storage_usage
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/storage_usage.sql
+        - name: snowflakeTableStorageUsage
+          entity: snowflake
+          event_type: SnowflakeAccount
+          custom_attributes:
+            metric_type: snowflake.table_storage_usage
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/table_storage_usage.sql
+        # Warehouse Load History emits under a different event type - SnowflakeVirtualWarehouse
+        # since these metrics are related to a particular warehouse.
+        - name: snowflakeWarehouseLoadHistory
+          entity: snowflake
+          event_type: SnowflakeVirtualWarehouse
+          custom_attributes:
+            metric_type: snowflake.warehouse_performance
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/warehouse_load_history.sql
+        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
+        # since these metrics are related to a particular warehouse.
+        - name: snowflakeWarehouseMetering
+          entity: snowflake
+          event_type: SnowflakeVirtualWarehouse
+          custom_attributes:
+            metric_type: snowflake.billing
+          commands:
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/warehouse_metering.sql
+        # Snowflake Warehouse Metering emits under a different event type - SnowflakeVirtualWarehouse
+        # since these metrics are related to a particular warehouse.
+        - name: CreditUsageByWarehouse
+          entity: snowflake
+          event_type: SnowflakeVirtualWarehouse
+          custom_attributes:
+            metric_type: snowflake.credit_usage_by_warehouse
+          commands: 
+            - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/credit_usage_by_warehouse.sql
+  - name: nri-flex
+    interval: 600s
+    config:
+      name: snowflake
+      custom_attributes:
+        environment: production
+        snowflake_account: $$SNOWSQL_ACCOUNT
+      global:
         timeout: 300000
       apis:
         # Query History emits under a different event type - SnowflakeVirtualWarehouse
@@ -23,7 +124,7 @@ integrations:
           entity: snowflake
           event_type: SnowflakeVirtualWarehouse
           custom_attributes:
-            metric_type: snowflake.change_back_later
+            metric_type: snowflake.query_performance
           commands: 
             - run: /home/nri-agent/newrelic-snowflake-integration/snowflakeintegration-linux /home/nri-agent/newrelic-snowflake-integration/config.yaml /home/nri-agent/newrelic-snowflake-integration/queries/longest_queries.sql
               
