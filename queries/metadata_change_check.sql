@@ -1,2 +1,2 @@
 SELECT * FROM AMAYSIMDW.MONITORING.METADATA_CHANGES WHERE AFFECTED_TABLES != ''
-AND JOBRUNTIME >= date_trunc(day, current_date-7) ;
+AND JOBRUNTIME >= dateadd(minute, -180, getdate())
